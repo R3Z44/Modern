@@ -29,19 +29,19 @@
             <article class="entry">
 
               <div class="entry-img">
-                <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="" class="img-fluid">
+                <img src="{{post.image.url}}" alt="" class="img-fluid">
               </div>
 
               <h2 class="entry-title">
-                <a href="{% url 'blog:blog-single' %}">{{post.title}}</a>
+                <a href="{% url 'blog:blog-single' pid=post.id %}">{{post.title}}</a>
               </h2>
 
               <div class="entry-meta">
                 <ul>
-                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{% url 'blog:blog-single' %}">John Doe</a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{% url 'blog:blog-single' %}"><time datetime="2020-01-01">{{post.published_date}}</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-eye"></i> <a href="{% url 'blog:blog-single' %}"><time datetime="2020-01-01">{{post.counted_views}} Views</time></a></li>
-                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="{% url 'blog:blog-single' %}">12 Comments</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{% url 'blog:blog-single' pid=post.id %}">{{post.author.get_full_name}}</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{% url 'blog:blog-single' pid=post.id %}"><time datetime="2020-01-01">{{post.published_date|date:"d M Y"}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-eye"></i> <a href="{% url 'blog:blog-single' pid=post.id %}">{{post.counted_views}} Views</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="{% url 'blog:blog-single' pid=post.id %}">12 Comments</a></li>
                 </ul>
               </div>
 
@@ -50,7 +50,7 @@
                   {{post.content}}
                 </p>
                 <div class="read-more">
-                  <a href="{% url 'blog:blog-single' %}">Read More</a>
+                  <a href="{% url 'blog:blog-single' pid=post.id%}">Read More</a>
                 </div>
               </div>
 
@@ -94,31 +94,31 @@
               <div class="sidebar-item recent-posts">
                 <div class="post-item clearfix">
                   <img src="{% static 'assets/img/blog/blog-recent-1.jpg' %}" alt="">
-                  <h4><a href="{% url 'blog:blog-single' %}">Nihil blanditiis at in nihil autem</a></h4>
+                  <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
                   <time datetime="2020-01-01">Jan 1, 2020</time>
                 </div>
 
                 <div class="post-item clearfix">
                   <img src="{% static 'assets/img/blog/blog-recent-2.jpg' %}" alt="">
-                  <h4><a href="{% url 'blog:blog-single' %}">Quidem autem et impedit</a></h4>
+                  <h4><a href="#">Quidem autem et impedit</a></h4>
                   <time datetime="2020-01-01">Jan 1, 2020</time>
                 </div>
 
                 <div class="post-item clearfix">
                   <img src="{% static 'assets/img/blog/blog-recent-3.jpg' %}" alt="">
-                  <h4><a href="{% url 'blog:blog-single' %}">Id quia et et ut maxime similique occaecati ut</a></h4>
+                  <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
                   <time datetime="2020-01-01">Jan 1, 2020</time>
                 </div>
 
                 <div class="post-item clearfix">
                   <img src="{% static 'assets/img/blog/blog-recent-4.jpg' %}" alt="">
-                  <h4><a href="{% url 'blog:blog-single' %}">Laborum corporis quo dara net para</a></h4>
+                  <h4><a href="#">Laborum corporis quo dara net para</a></h4>
                   <time datetime="2020-01-01">Jan 1, 2020</time>
                 </div>
 
                 <div class="post-item clearfix">
                   <img src="{% static 'assets/img/blog/blog-recent-5.jpg' %}" alt="">
-                  <h4><a href="{% url 'blog:blog-single' %}">Et dolores corrupti quae illo quod dolor</a></h4>
+                  <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
                   <time datetime="2020-01-01">Jan 1, 2020</time>
                 </div>
 
