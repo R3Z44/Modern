@@ -47,7 +47,7 @@
 
               <div class="entry-content">
                 <p>
-                  {{post.content}}
+                  {{post.content|truncatewords:20}}
                 </p>
                 <div class="read-more">
                   <a href="{% url 'blog:blog-single' pid=post.id%}">Read More</a>
