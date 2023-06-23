@@ -1,0 +1,23 @@
+{% load static %}
+
+<!-- ======= Latest Posts Section ======= -->
+<section class= "services">
+  <div class="container">
+    <h3 class="text-center">Latest Posts of Our Blog</h3>
+    <br>
+    <div class="card-group row row-cols-3 g-3">
+      {% for post in posts %}
+        <div class="col">
+          <div class="card h-100" data-aos="fade-up">
+            <img class="card-img-top img-fluid" src="{{post.image.url}}" alt="">
+            <div class="card-body p-4">
+              <h4 class="card-title"><a href="{% url 'blog:blog-single' pid=post.id %}">{{post.title}}</a></h4>
+              <p class="card-text">{{post.content|truncatewords:12}}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section><!-- End Latest Posts Section -->

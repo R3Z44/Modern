@@ -24,7 +24,7 @@ def snippet(value, arg=20):
 
 @register.inclusion_tag('blog/blog-recent-posts.html')
 def recentposts(arg=3):
-    posts = Post.objects.filter(status=1).order_by('published_date')[:arg]
+    posts = Post.objects.filter(status=1).order_by('-published_date')[:arg]
     return {'posts': posts}
 
 
@@ -36,3 +36,9 @@ def postcategories():
     for name in categories:
         cat_dict[name] = posts.filter(category=name).count()
     return {'categories': cat_dict}
+
+
+@register.inclusion_tag('website/website-latest-posts.html')
+def latestposts(arg=6):
+    posts = Post.objects.filter(status=1).order_by('-published_date')[:arg]
+    return {'posts': posts}
