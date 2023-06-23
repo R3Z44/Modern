@@ -40,6 +40,15 @@
               </h2>
 
               <div class="entry-meta">
+                <ul class="cats">
+                  <span>Categories:&nbsp&nbsp</span>
+                  {% for cat in post.category.all %}
+                    <li><a href="{% url 'blog:category' cat_name=cat.name %}">
+                        {{cat.name}} {% if not forloop.last %},{% endif %}
+                    </a></li>
+                  {% endfor %}
+                </ul>
+                <br>
                 <ul>
                   <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{% url 'blog:blog-single' pid=post.id %}">{{post.author.get_full_name}}</a></li>
                   <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="{% url 'blog:blog-single' pid=post.id %}"><time datetime="2020-01-01">{{post.published_date|date:"d M Y"}}</time></a></li>

@@ -5,8 +5,12 @@ from django.db.models.functions import Now
 # Create your views here.
 
 
-def blog_view(request):
-    posts = Post.objects.all().filter(status=1)
+def blog_view(request, cat_name=None):
+
+    posts = Post.objects.filter(status=1)
+    if cat_name:
+        lowercase_cat_name = cat_name.lower()
+        posts = Post.objects.filter(category__name__iexact=lowercase_cat_name)
     context = {'posts': posts}
     return render(request, 'blog/blog.html', context)
 
@@ -14,7 +18,6 @@ def blog_view(request):
 def blog_single(request, pid):
     posts = Post.objects.filter(
         published_date__lte=Now(), status=1).order_by('order')
-    # post_list = Post.objects.order_by('order')
     post = get_object_or_404(posts, pk=pid)
     current_index = list(posts).index(post)
 

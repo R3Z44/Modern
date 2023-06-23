@@ -37,7 +37,7 @@
               </div>
 
               <h2 class="entry-title">
-                <a href="{% url 'blog:blog-single' pid=post.id %}">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</a>
+                <a href="{% url 'blog:blog-single' pid=post.id %}">{{post.title}}</a>
               </h2>
 
               <div class="entry-meta">
@@ -59,11 +59,11 @@
               <div class="entry-footer">
                 <i class="bi bi-folder"></i>
                 <ul class="cats">
-                  <li><a href="#">
-                    {% for cat in post.category.all %}
-                      {{cat.name}} {% if not forloop.last %},{% endif %}
-                    {% endfor %}
-                  </a></li>
+                  {% for cat in post.category.all %}
+                    <li><a href="{% url 'blog:category' cat_name=cat.name %}">
+                        {{cat.name}} {% if not forloop.last %},{% endif %}
+                    </a></li>
+                  {% endfor %}
                 </ul>
               </div>
 
@@ -79,7 +79,7 @@
                   <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
                 </div>
                 <p>
-                  Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
+                  {{post.content}}
                 </p>
               </div>
             </div><!-- End blog author bio -->
