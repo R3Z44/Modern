@@ -645,6 +645,13 @@ section {
   object-fit: stretch;
 }
 
+.notification {
+  position: absolute;
+  top: 5rem;
+  right: 1rem;
+  z-index: 100 !important;
+}
+
 /*--------------------------------------------------------------
 # Our Services
 --------------------------------------------------------------*/

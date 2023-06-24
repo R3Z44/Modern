@@ -50,6 +50,8 @@
         <!-- <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
       </div>
 
+      {% include 'website/message.html' %}
+
       <nav id="navbar" class="navbar">
         <ul>
           {% with url_name=request.resolver_match.url_name %}
@@ -211,6 +213,19 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  {% if messages %}
+    <script>
+        {% for message in messages %}
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        {% endfor %}
+    </script>
+  {% endif %}
 
 </body>
 
