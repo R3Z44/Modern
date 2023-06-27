@@ -16,6 +16,10 @@ def blog_view(request, **kwargs):
         lowercase_author_username = kwargs['author_username'].lower()
         posts = posts.filter(
             author__username__iexact=lowercase_author_username)
+    if kwargs.get('tag_name') != None:
+        lowercase_tag_name = kwargs['tag_name'].lower()
+        posts = posts.filter(
+            tags__name__iexact=lowercase_tag_name)
     posts = Paginator(posts, 3)
     try:
         page_number = request.GET.get('page')
