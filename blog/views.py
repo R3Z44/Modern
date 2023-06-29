@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from blog.models import Post, Comment
 from django.db.models.functions import Now
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from blog.forms import CommentForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -33,6 +35,15 @@ def blog_view(request, **kwargs):
 
 
 def blog_single(request, pid):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'Your comment has been received successfully!!!')
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 'Your comment didn\'t received!!!')
     posts = Post.objects.filter(
         published_date__lte=Now(), status=1).order_by('order')
     post = get_object_or_404(posts, pk=pid)
@@ -47,7 +58,11 @@ def blog_single(request, pid):
     if current_index < len(posts) - 1:
         next_post = posts[current_index + 1]
 
-    context = {'post': post, 'previous_post': previous_post,
+    comments = Comment.objects.filter(
+        post=post.id, approved=True)
+
+    form = CommentForm()
+    context = {'post': post, 'comments': comments, 'form': form, 'previous_post': previous_post,
                'next_post': next_post}
     post.counted_views += 1
     post.save()
