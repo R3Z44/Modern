@@ -61,6 +61,19 @@
           <li><a class="{% if url_name == 'team' %}active{% endif %}" href="{% url 'website:team' %}">Team</a></li>
           <li><a class="{% if url_name == 'blog-index' %}active{% endif %}" href="{% url 'blog:blog-index' %}">Blog</a></li>
           <li><a class="{% if url_name == 'contact' %}active{% endif %}" href="{% url 'website:contact' %}">Contact Us</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a href="#">Loggd in as {{request.user.username}}</a></li>
+            <li>
+              <a class="nav-link" href="{% url 'accounts:logout' %}"><i class="fas fa-user"></i>Log out</a>
+            </li>
+          {% else %}
+            <li>
+              <a class="nav-link" href="#"><i class="fas fa-user"></i>Sign Up</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            </li>
+          {% endif %}
           {% endwith %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
