@@ -68,7 +68,7 @@
             </li>
           {% else %}
             <li>
-              <a class="nav-link" href="#"><i class="fas fa-user"></i>Sign Up</a>
+              <a class="nav-link" href="{% url 'accounts:signup' %}"><i class="fas fa-user"></i>Sign Up</a>
             </li>
             <li>
               <a class="nav-link" href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>

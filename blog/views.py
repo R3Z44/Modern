@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Post, Comment
 from django.db.models.functions import Now
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -47,26 +47,29 @@ def blog_single(request, pid):
     posts = Post.objects.filter(
         published_date__lte=Now(), status=1).order_by('order')
     post = get_object_or_404(posts, pk=pid)
-    current_index = list(posts).index(post)
+    if not post.login_require:
+        current_index = list(posts).index(post)
 
-    previous_post = None
-    next_post = None
+        previous_post = None
+        next_post = None
 
-    if current_index > 0:
-        previous_post = posts[current_index - 1]
+        if current_index > 0:
+            previous_post = posts[current_index - 1]
 
-    if current_index < len(posts) - 1:
-        next_post = posts[current_index + 1]
+        if current_index < len(posts) - 1:
+            next_post = posts[current_index + 1]
 
-    comments = Comment.objects.filter(
-        post=post.id, approved=True)
+        comments = Comment.objects.filter(
+            post=post.id, approved=True)
 
-    form = CommentForm()
-    context = {'post': post, 'comments': comments, 'form': form, 'previous_post': previous_post,
-               'next_post': next_post}
-    post.counted_views += 1
-    post.save()
-    return render(request, 'blog/blog-single.html', context)
+        form = CommentForm()
+        context = {'post': post, 'comments': comments, 'form': form, 'previous_post': previous_post,
+                   'next_post': next_post}
+        post.counted_views += 1
+        post.save()
+        return render(request, 'blog/blog-single.html', context)
+    else:
+        return redirect('/accounts/login')
 
 
 def blog_search(request):
