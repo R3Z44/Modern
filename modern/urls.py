@@ -34,6 +34,7 @@ urlpatterns = [
     path('', include('website.urls')),
     path('blog/', include('blog.urls')),
     path('accounts/', include('accounts.urls')),
+    path("accounts/", include("django.contrib.auth.urls")),
     path('summernote/', include('django_summernote.urls')),
     path(
         "sitemap.xml",
